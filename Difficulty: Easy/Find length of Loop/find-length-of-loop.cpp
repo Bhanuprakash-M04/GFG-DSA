@@ -15,16 +15,24 @@ class Solution {
   public:
     int lengthOfLoop(Node *head) {
         // Code here
-        int temp=0;
-        unordered_map<Node*,int>mymap;
-        while(head!=NULL){
-            temp++;
-            if(mymap.find(head)!=mymap.end()){
-                return temp-mymap[head]; 
+        Node* slow=head;
+        Node* fast=head;
+        if(head==NULL || head->next==NULL || head->next->next==NULL)
+            return 0;
+        int cnt=0;
+        while(fast!=NULL && fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+            if(fast==slow){
+                slow=slow->next;
+                cnt++;
+                while(slow!=fast){
+                    cnt++;
+                    slow=slow->next;
+                }
+                break;
             }
-            mymap[head]=temp;
-            head=head->next;
         }
-        return 0;
+        return cnt;
     }
 };
