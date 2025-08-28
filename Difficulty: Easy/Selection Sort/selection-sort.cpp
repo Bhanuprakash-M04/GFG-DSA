@@ -1,18 +1,18 @@
 class Solution {
   public:
-    // Function to perform selection sort on the given array.
-    void selectionSort(vector<int> &arr) {
-        // code here
-        int n=arr.size();
-        for(int i=0;i<n-1;i++){
-            int mini=i;
-            for(int j=i;j<n;j++){
-                if(arr[mini]>arr[j])
-                    mini=j;
-            }
-            int temp=arr[mini];
-            arr[mini]=arr[i];
-            arr[i]=temp;
+    void solve(vector<int>& arr,int start,int n){
+        if(start>=n-1)
+            return;
+        int mini=start;
+        for(int i=start;i<n;i++){
+            if(arr[i]<arr[mini])
+                mini=i;
         }
+        if(start!=mini)
+            swap(arr[mini],arr[start]);
+        solve(arr,start+1,n);
+    }
+    void selectionSort(vector<int> &arr) {
+        solve(arr,0,arr.size());
     }
 };
