@@ -1,35 +1,35 @@
 class Solution {
   public:
-    bool canplace(vector<int>& stalls,int k,int mid){
+    bool check(vector<int> &stalls,int k,int mid){
+        int n=stalls.size();
         int last=stalls[0];
         int cnt=1;
-        int n=stalls.size();
-        for(int i=1;i<n;i++){
+        for(int i=0;i<n;i++){
             if(stalls[i]-last>=mid){
                 cnt++;
                 last=stalls[i];
+                if(cnt>=k)
+                    return true;
             }
-            if(cnt>=k)
-                return true;
         }
         return false;
     }
     int aggressiveCows(vector<int> &stalls, int k) {
         // code here
+        int low=0;
+        int high=*max_element(stalls.begin(),stalls.end())-*min_element(stalls.begin(),stalls.end());
+        int ans=0;
         sort(stalls.begin(),stalls.end());
-        int low=1;
-        int maxi=*max_element(stalls.begin(),stalls.end());
-        int mini=*min_element(stalls.begin(),stalls.end());
-        int high=maxi-mini;
         while(low<=high){
             int mid=(low+high)/2;
-            if(canplace(stalls,k,mid)){
+            bool value=check(stalls,k,mid);
+            if(value){
+                ans=mid;
                 low=mid+1;
             }
-            else{
+            else
                 high=mid-1;
-            }
         }
-        return high;
+        return ans;
     }
 };
