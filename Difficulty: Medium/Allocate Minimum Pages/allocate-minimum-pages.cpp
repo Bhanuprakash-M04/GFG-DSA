@@ -1,42 +1,40 @@
 class Solution {
   public:
-    int allocate(vector<int>& arr, int mid){
-        int sum=0;
+    bool canAllocate(vector<int>& arr,int k,int mid){
         int n=arr.size();
+        int cur_sum=0;
         int cnt=1;
         for(int i=0;i<n;i++){
-            if(sum+arr[i]<=mid){
-                sum+=arr[i];
-            }
+            if(cur_sum+arr[i]<=mid)
+                cur_sum+=arr[i];
             else{
-                sum=arr[i];
                 cnt++;
+                cur_sum=arr[i];
             }
         }
-        
-        return cnt;
+        if(cnt<=k)
+            return true;
+        return false;
     }
     int findPages(vector<int> &arr, int k) {
         // code here
         int n=arr.size();
-        if(k>n)
+        if(n<k)
             return -1;
-        int sum=0;
-        for(int i=0;i<n;i++){
-            sum+=arr[i];
-        }
         int low=*max_element(arr.begin(),arr.end());
+        int sum=0;
+        for(int i=0;i<n;i++)
+            sum+=arr[i];
         int high=sum;
-        int ans=INT_MIN;
         while(low<=high){
             int mid=(low+high)/2;
-            if(allocate(arr,mid)<=k){
-                ans=mid;
+            if(canAllocate(arr,k,mid)){
                 high=mid-1;
             }
             else
                 low=mid+1;
         }
-        return ans;
+        return low;
     }
+    
 };
