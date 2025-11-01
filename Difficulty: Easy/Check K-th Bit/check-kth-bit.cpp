@@ -1,8 +1,8 @@
 class Solution {
   public:
     bool checkKthBit(int n, int k) {
-        //  code here
-        n=n>>k;
-        return ((n&1)%2==0) ? false : true; 
+        if(n&(1<<k))
+            return true;
+        return false;
     }
 };
