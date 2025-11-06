@@ -1,32 +1,59 @@
-/*
+class myQueue {
 
-The structure of the class is
-class MyQueue {
-private:
-    int arr[100005];
-    int front;
-    int rear;
+  public:
+    int *arr;
+    int front=-1,rear=-1;
+    int curr_size;
+    int capacity;
+    myQueue(int n) {
+        arr = new int[n];
+        curr_size=0;
+        capacity=n;
+    }
 
-public :
-    MyQueue(){front=0;rear=0;}
-    void push(int);
-    int pop();
+    bool isEmpty() {
+        return (curr_size==0);
+    }
+
+    bool isFull() {
+        return (curr_size==capacity);
+    }
+
+    void enqueue(int x) {
+        if(isFull())
+            return;
+        if(front==-1 && rear==-1){
+           front=0;
+           rear=0;
+        }
+        else{
+           rear=(rear+1)%capacity;
+        }
+        arr[rear]=x;
+        curr_size++;
+    }
+
+    void dequeue() {
+        if(isEmpty())
+            return;
+        if(curr_size==1){
+            front=-1;
+            rear=-1;
+        }
+        else
+            front=(front+1)%capacity;
+        curr_size--;
+    }
+
+    int getFront() {
+        if(curr_size==0)
+            return -1;
+        return arr[front];
+    }
+
+    int getRear() {
+        if(curr_size==0)
+            return -1;
+        return arr[rear];
+    }
 };
- */
-
-// Function to push an element x in a queue.
-void MyQueue ::push(int x) {
-    arr[rear]=x;
-    rear++;
-    // Your Code
-}
-
-// Function to pop an element from queue and return that element.
-int MyQueue ::pop() {
-    if(front==rear)
-        return -1;
-    int ans=arr[front];
-    front++;
-    return ans;
-    // Your Code
-}
