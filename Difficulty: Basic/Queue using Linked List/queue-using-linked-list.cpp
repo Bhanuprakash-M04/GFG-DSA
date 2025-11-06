@@ -1,50 +1,60 @@
-/* Structure of a node in Queue
-struct QueueNode
-{
+class Node {
+  public:
     int data;
-    QueueNode *next;
-    QueueNode(int a)
-    {
-        data = a;
-        next = NULL;
+    Node* next;
+
+    Node(int new_data) {
+        data = new_data;
+        next = nullptr;
     }
 };
 
-And structure of MyQueue
-struct MyQueue {
-    QueueNode *front;
-    QueueNode *rear;
-    void push(int);
-    int pop();
-    MyQueue() {front = rear = NULL;}
-}; */
+class myQueue {
 
-//Function to push an element into the queue.
-void MyQueue:: push(int x)
-{
-    QueueNode* nn=new QueueNode(x);
-    if(rear==NULL)
-    {
-        rear=nn;
-        front=nn;
-    }
-    else{
-        rear->next=nn;
-        rear=rear->next;
-    }
-        // Your Code
-}
-
-//Function to pop front element from the queue.
-int MyQueue :: pop()
-{
-    if(front==NULL)
-        return -1;
-    int ans=front->data;
-    front=front->next;
-    if(front==NULL)
+  public:
+    int cnt;
+    Node* front;
+    Node* rear;
+    myQueue() {
+        front=NULL;
         rear=NULL;
-    return ans;
-    
-        // Your Code       
-}
+        cnt=0;
+    }
+
+    bool isEmpty() {
+        return (cnt==0);
+    }
+
+    void enqueue(int x) {
+        Node* newNode=new Node(x);
+        if(cnt==0)
+        {
+            front=newNode;
+            rear=newNode;
+        }
+        else{
+             rear->next=newNode;
+             rear=newNode;
+        }
+        cnt++;
+    }
+
+    void dequeue() {
+        if(isEmpty())
+            return;
+        Node* temp=front;
+        front=front->next;
+        delete(temp);
+        cnt--;
+    }
+
+    int getFront() {
+        if(isEmpty())
+            return -1;
+        return front->data;
+    }
+
+    int size() {
+        return cnt;
+    }
+};
