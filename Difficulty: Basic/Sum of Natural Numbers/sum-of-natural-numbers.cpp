@@ -1,7 +1,9 @@
 class Solution {
   public:
     int findSum(int n) {
-        return n*(n+1)/2;
+        if(n==0)
+            return 0;
+        return n+findSum(n-1);
         
     }
 };
