@@ -1,40 +1,32 @@
 class Solution {
   public:
-    bool paint(vector<int>& arr,int mid ,int k){
-        int n=arr.size();
-        int sum=0;
-        int cnt=1;
-        for(int i=0;i<n;i++){
-            if(sum+arr[i]<=mid){
-                sum+=arr[i];
+    bool check(vector<int>& arr,int k,int mid){
+        int painters=1;
+        int curr=0;
+        for(int num:arr){
+            if(curr+num<=mid){
+                curr+=num;
             }
             else{
-                sum=arr[i];
-                cnt++;
+                painters++;
+                curr=num;
             }
         }
-        return cnt<=k;
+        return (painters<=k);
     }
     int minTime(vector<int>& arr, int k) {
-        // code here
-        int n=arr.size();
         int low=*max_element(arr.begin(),arr.end());
         int sum=0;
-        for(int i=0;i<n;i++){
-            sum+=arr[i];
-        }
+        for(int num:arr)
+            sum+=num;
         int high=sum;
-        int ans=-1;
         while(low<=high){
             int mid=(low+high)/2;
-            if(paint(arr,mid,k)){
-                ans=mid;
+            if(check(arr,k,mid))
                 high=mid-1;
-            }
-            else{
+            else
                 low=mid+1;
-            }
         }
-        return ans;
+        return low;
     }
 };
