@@ -1,25 +1,22 @@
 class Solution {
   public:
-  int check(int mid,int n){
-      int ans=1;
-      for(int i=0;i<n;i++){
-          ans=ans*mid;
-      }
-      return ans;
-  }
     int nthRoot(int n, int m) {
         // Code here
-        int low=1;
+        int low=0;
         int high=m;
+        int ans=-1;
         while(low<=high){
             int mid=(low+high)/2;
-            if(check(mid,n)==m)
-                return mid;
-            else if(check(mid,n)>m)
+            if(pow(mid,n)==m)
+            {
+                ans=mid;
+                break;
+            }
+            else if(pow(mid,n)>m)
                 high=mid-1;
             else
                 low=mid+1;
         }
-        return -1;
+        return ans;
     }
 };
