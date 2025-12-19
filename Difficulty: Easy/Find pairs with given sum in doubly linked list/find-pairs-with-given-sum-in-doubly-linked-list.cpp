@@ -15,31 +15,23 @@ public:
 class Solution {
   public:
     vector<pair<int, int>> findPairsWithGivenSum(Node *head, int target) {
-        // code here
         vector<pair<int,int>>ans;
-        if(head==NULL || head->next==NULL)
-            return ans;
-        Node* start=head;
-        Node* temp=head;
-        while(temp->next){
-            temp=temp->next;
+        Node* first=head;
+        Node* last=head;
+        while(last->next!=NULL){
+            last=last->next;
         }
-        Node* end=temp;
-        while(start!=end && start->prev!=end){
-            int sum=start->data+end->data;
-            if(sum==target)
-            {
-                ans.push_back({start->data,end->data});
-                start=start->next;
-                end=end->prev;
+        while(first!=last){
+            int sum=first->data+last->data;
+            if(sum==target){
+                ans.push_back({first->data,last->data});
+                first=first->next;
+                // last=last->next;
             }
-            else if(sum>target){
-                end=end->prev;
-            }
+            else if(sum>target)
+                last=last->prev;
             else
-            {
-                start=start->next;
-            }
+                first=first->next;
         }
         return ans;
     }
