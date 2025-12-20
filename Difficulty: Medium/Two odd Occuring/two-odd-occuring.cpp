@@ -1,17 +1,21 @@
 class Solution {
   public:
     vector<int> twoOddNum(vector<int>& arr) {
-        vector<int>ans;
-        unordered_map<int,int>mymap;
+        int arr_xor=0;
         for(int num:arr){
-            mymap[num]++;
+            arr_xor^=num;
         }
-        for(auto it:mymap){
-            if(it.second%2!=0)
-                ans.push_back(it.first);
+        int y=(((arr_xor)&(arr_xor-1))^(arr_xor));
+        int b1=0;
+        int b2=0;
+        for(int num:arr){
+            if((num&y)==0)
+                b1=b1^num;
+            else
+                b2=b2^num;
         }
-        if(ans[0]<ans[1])
-            swap(ans[0],ans[1]);
-        return ans;
+        if(b1<b2)
+            swap(b1,b2);
+        return {b1,b2};
     }
 };
