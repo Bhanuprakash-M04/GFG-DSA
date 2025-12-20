@@ -15,7 +15,7 @@ class Solution {
                 st.pop();
                 string t2=st.top();
                 st.pop();
-                string res='('+t2+string(1,s[i])+t1+')';
+                string res='('+t2+s[i]+t1+')';
                 st.push(res);
             }
             i++;
