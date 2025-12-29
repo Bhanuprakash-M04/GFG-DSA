@@ -1,0 +1,24 @@
+class Solution {
+  public:
+    int minPlatform(vector<int>& arr, vector<int>& dep) {
+        int n=arr.size();
+        sort(arr.begin(),arr.end());
+        sort(dep.begin(),dep.end());
+        int i=0;
+        int j=0;
+        int cnt=0;
+        int max_cnt=0;
+        while(i<n){
+            if(arr[i]<=dep[j]){
+                cnt++;
+                i++;
+            }
+            else{
+                cnt--;
+                j++;
+            }
+            max_cnt=max(max_cnt,cnt);
+        }
+        return max_cnt;
+    }
+};
