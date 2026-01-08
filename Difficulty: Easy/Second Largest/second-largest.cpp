@@ -1,16 +1,17 @@
 class Solution {
   public:
     int getSecondLargest(vector<int> &arr) {
-        // code here
-        int fmaxi=arr[0];
-        for(int num:arr){
-            fmaxi=max(fmaxi,num);
+        int fmax=-1;
+        int smax=-1;
+        for(int i=0;i<arr.size();i++){
+            if(arr[i]>fmax){
+                smax=fmax;
+                fmax=arr[i];
+            }
+            else if(arr[i]<fmax){
+                smax=max(smax,arr[i]);
+            }
         }
-        int smaxi=-1;
-        for(int num:arr){
-            if(smaxi<num && num!=fmaxi)
-                smaxi=num;
-        }
-        return smaxi;
+        return smax;
     }
 };
