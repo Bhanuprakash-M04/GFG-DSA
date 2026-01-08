@@ -1,26 +1,18 @@
 class Solution {
   public:
     void mergeArrays(vector<int>& a, vector<int>& b) {
-        // code here
         int n=a.size();
         int m=b.size();
-        int gap=(n+m)/2+(n+m)%2; // to get ceil value
-        while(gap>0){
-            int left=0;
-            int right=gap;
-            while(right<n+m){
-                if(right<n && a[left]>a[right])
-                    swap(a[left],a[right]);
-                else if(left<n && right>=n && a[left]>b[right-n])
-                    swap(a[left],b[right-n]);
-                else if(left>=n && right>=n && b[left-n]>b[right-n])
-                    swap(b[left-n],b[right-n]);
-                left++;
-                right++;
+        int p1=n-1;
+        int p2=0;
+        while(p1>=0 && p2<m){
+            if(a[p1]>b[p2]){
+                swap(a[p1],b[p2]);
             }
-            if(gap==1)
-                break;
-            gap=(gap)/2+(gap%2);
+            p1--;
+            p2++;
         }
+        sort(a.begin(),a.end());
+        sort(b.begin(),b.end());
     }
 };
