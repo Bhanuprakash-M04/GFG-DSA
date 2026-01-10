@@ -15,18 +15,10 @@ class Solution {
                     p1++;
                 }
                 if(p2==m){
-                    int end=p1-1;
-                    p2=m-1;
-                    while(p2>=0){
-                        if(s1[end]==s2[p2])
-                            p2--;
-                        end--;
-                    }
-                    int start=end+1;
-                    int len=p1-start;
+                    int len=p1-i;
                     if(len<minLen){
                         minLen=len;
-                        st_ind=start;
+                        st_ind=i;
                     }
                 }
             }
